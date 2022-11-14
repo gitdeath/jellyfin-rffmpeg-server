@@ -24,7 +24,7 @@ services:
       - SHARED_DIRECTORY=/var/jellyfin
       - SHARED_DIRECTORY_2=/var/jellyfin/cache
     ports:
-      - ${RFFMPEG_LAN_IP-}:2049:2049
+      - ${NFS_LAN_IP-}:2049:2049
     volumes:
       - jellyfin-conf:/var/jellyfin:z
       - jellyfin-cache:/var/jellyfin/cache:z
