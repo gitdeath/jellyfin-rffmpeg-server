@@ -6,7 +6,7 @@ services:
       - TZ=Europe/Berlin
 #      - JELLYFIN_PublishedServerUrl=https://jellyfin.example.com
     ports:
-      - ${SERVER_LAN_IP-}:8096:8096
+      - ${SERVER_LAN_IP:-}:8096:8096
     volumes:
       - jellyfin-conf:/config:z
       - jellyfin-cache:/cache:z
@@ -24,7 +24,7 @@ services:
       - SHARED_DIRECTORY=/var/jellyfin
       - SHARED_DIRECTORY_2=/var/jellyfin/cache
     ports:
-      - ${NFS_LAN_IP-}:2049:2049
+      - ${NFS_LAN_IP:-}:2049:2049
     volumes:
       - jellyfin-conf:/var/jellyfin:z
       - jellyfin-cache:/var/jellyfin/cache:z
