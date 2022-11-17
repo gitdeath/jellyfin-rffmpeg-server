@@ -14,7 +14,7 @@ rffmpeg:
 
         # Log messages to this file.
         # Ensure the user running rffmpeg can write to this directory.
-        #logfile: "/config/log/rffmpeg.log"
+        logfile: "/config/log/rffmpeg.log"
 
         # Show debugging messages
         #debug: false
@@ -22,34 +22,34 @@ rffmpeg:
     # Directory configuration
     directories:
         # Persistent directory to store state database.
-        #state: "/config/rffmpeg"
+        state: "/config/rffmpeg"
 
         # Temporary directory to store SSH persistence sockets.
-        #persist: "/run"
+        persist: "/run"
 
         # The user who should own the state directory and database.
         # This should normally be the user who normally runs rffmpeg commands (i.e. the media
         # server service user).
-        #owner: root
+        owner: root
 
         # The group who should own the state directory and database (an administrative group).
         # Use this group to control who is able to run "rffmpeg" management commands; users in
         # this group will have unlimited access to the tool to add/remove hosts, view status, etc.
-        #group: root
+        group: root
 
     # Remote (SSH) configuration
     remote:
         # The remote SSH user to connect as.
-        #user: root
+        user: root
 
         # How long to persist SSH sessions; 0 to disable SSH persistence.
         #persist: 300
 
         # A YAML list of additional SSH arguments (e.g. private keys).
         # One entry line per space-separated argument element.
-        #args: 
-        #    - "-i"
-        #    - "/config/rffmpeg/.ssh/id_rsa"
+        args: 
+            - "-i"
+            - "/config/rffmpeg/.ssh/id_rsa"
 
     # Remote command configuration
     commands:
