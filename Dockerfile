@@ -3,12 +3,14 @@ FROM docker.io/jellyfin/jellyfin:latest
 RUN apt update && \
     apt install --no-install-recommends --no-install-suggests -y openssh-client python3-click python3-yaml wget
 
-RUN wget https://raw.githubusercontent.com/joshuaboniface/rffmpeg/master/rffmpeg -O /usr/local/bin/rffmpeg && \
+RUN mkdir -p /usr/local/bin && \
+    wget https://raw.githubusercontent.com/joshuaboniface/rffmpeg/master/rffmpeg -O /usr/local/bin/rffmpeg && \
     chmod +x /usr/local/bin/rffmpeg && \
     ln -s /usr/local/bin/rffmpeg /usr/local/bin/ffmpeg && \
     ln -s /usr/local/bin/rffmpeg /usr/local/bin/ffprobe
 
-RUN wget https://raw.githubusercontent.com/joshuaboniface/rffmpeg/master/rffmpeg.yml.sample -O /etc/rffmpeg/rffmpeg.yml && \
+RUN mkdir -p /etc/rffmpeg && \
+    wget https://raw.githubusercontent.com/joshuaboniface/rffmpeg/master/rffmpeg.yml.sample -O /etc/rffmpeg/rffmpeg.yml && \
     sed -i 's;#logfile: "/var/log/jellyfin/rffmpeg.log";logfile: "/config/log/rffmpeg.log";' /etc/rffmpeg/rffmpeg.yml && \
     sed -i 's;#state: "/var/lib/rffmpeg";state: "/config/rffmpeg";' /etc/rffmpeg/rffmpeg.yml && \
     sed -i 's;#persist: "/run/shm";persist: "/run";' /etc/rffmpeg/rffmpeg.yml && \
