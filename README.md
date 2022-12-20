@@ -7,11 +7,11 @@ The public ssh key is located inside the container at `/config/rffmpeg/.ssh/id_r
 You can add new hosts using this:
 
 ```
-docker compose exec -it jellyfin rffmpeg add [--weight 1] [--name myfirsthost] <ip address of the host>
+docker exec -it <Container Name> rffmpeg add [--weight 1] [--name myfirsthost] <ip address of the host>
 ```
 
 You can check the status of rffmpeg using this:
 
 ```
-docker compose exec -it jellyfin rffmpeg status
+docker exec -it <Container Name> rffmpeg status
 ```
