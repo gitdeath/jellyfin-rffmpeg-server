@@ -10,7 +10,7 @@ You can add new hosts using this:
 ```
 docker exec -it <Container Name> rffmpeg add [--weight 1] [--name myfirsthost] <ip address of the host>
 
-docker exec -it ssh-copy-id -i /config/rffmpeg/.ssh/id_rsa.pub <user>@<host>
+docker exec -it <Container Name> ssh-copy-id -i /config/rffmpeg/.ssh/id_rsa.pub <user>@<host>
 
 ```
 
