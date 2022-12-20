@@ -35,3 +35,4 @@ ENTRYPOINT ["./jellyfin/jellyfin", \
     "--datadir", "/config", \
     "--cachedir", "/cache", \
     "--ffmpeg", "/usr/local/bin/ffmpeg"]
+    
