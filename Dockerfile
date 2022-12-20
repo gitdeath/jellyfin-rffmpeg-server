@@ -32,7 +32,7 @@ RUN /usr/local/bin/rffmpeg init -y && \
     ssh-keygen -t rsa -f /config/rffmpeg/.ssh/id_rsa -q -N ""
 
 RUN sed -i 's;#   IdentityFile ~/.ssh/id_rsa;   IdentityFile /config/rffmpeg/.ssh/id_rsa;' /etc/ssh/ssh_config && \
-    sed -i 's;#   UserKnownHostsFile ~/.ssh/known_hosts.d/%k;   IdentityFile /config/rffmpeg/.ssh/known_hosts;' /etc/ssh/ssh_config 
+    sed -i 's;#   UserKnownHostsFile ~/.ssh/known_hosts.d/%k;   UserKnownHostsFile /config/rffmpeg/.ssh/known_hosts;' /etc/ssh/ssh_config 
     
 RUN apt purge wget -y && \
     rm -rf /var/lib/apt/lists/* && \
