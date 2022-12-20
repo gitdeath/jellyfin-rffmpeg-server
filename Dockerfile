@@ -11,17 +11,20 @@ RUN mkdir -p /usr/local/bin && \
     ln -s /usr/local/bin/rffmpeg /usr/local/bin/ffmpeg && \
     ln -s /usr/local/bin/rffmpeg /usr/local/bin/ffprobe
 
+RUN mkdir -p /config/rffmpeg && \
+    wget https://raw.githubusercontent.com/joshuaboniface/rffmpeg/master/rffmpeg.yml.sample -O /config/rffmpeg/rffmpeg.yml && \
+    sed -i 's;#logfile: "/var/log/jellyfin/rffmpeg.log";logfile: "/config/log/rffmpeg.log";' /config/rffmpeg/rffmpeg.yml && \
+    sed -i 's;#state: "/var/lib/rffmpeg";state: "/config/rffmpeg";' /config/rffmpeg/rffmpeg.yml && \
+    sed -i 's;#persist: "/run/shm";persist: "/run";' /config/rffmpeg/rffmpeg.yml && \
+    sed -i 's;#owner: jellyfin;owner: root;' /config/rffmpeg/rffmpeg.yml && \
+    sed -i 's;#group: sudo;group: root;' /config/rffmpeg/rffmpeg.yml && \
+    sed -i 's;#user: jellyfin;user: root;' /config/rffmpeg/rffmpeg.yml && \
+    sed -i 's;#args:;args:;' /config/rffmpeg/rffmpeg.yml && \
+    sed -i 's;#    - "-i";    - "-i";' /config/rffmpeg/rffmpeg.yml && \
+    sed -i 's;#    - "/var/lib/jellyfin/id_rsa";    - "/config/rffmpeg/.ssh/id_rsa";' /config/rffmpeg/rffmpeg.yml
+
 RUN mkdir -p /etc/rffmpeg && \
-    wget https://raw.githubusercontent.com/joshuaboniface/rffmpeg/master/rffmpeg.yml.sample -O /etc/rffmpeg/rffmpeg.yml && \
-    sed -i 's;#logfile: "/var/log/jellyfin/rffmpeg.log";logfile: "/config/log/rffmpeg.log";' /etc/rffmpeg/rffmpeg.yml && \
-    sed -i 's;#state: "/var/lib/rffmpeg";state: "/config/rffmpeg";' /etc/rffmpeg/rffmpeg.yml && \
-    sed -i 's;#persist: "/run/shm";persist: "/run";' /etc/rffmpeg/rffmpeg.yml && \
-    sed -i 's;#owner: jellyfin;owner: root;' /etc/rffmpeg/rffmpeg.yml && \
-    sed -i 's;#group: sudo;group: root;' /etc/rffmpeg/rffmpeg.yml && \
-    sed -i 's;#user: jellyfin;user: root;' /etc/rffmpeg/rffmpeg.yml && \
-    sed -i 's;#args:;args:;' /etc/rffmpeg/rffmpeg.yml && \
-    sed -i 's;#    - "-i";    - "-i";' /etc/rffmpeg/rffmpeg.yml && \
-    sed -i 's;#    - "/var/lib/jellyfin/id_rsa";    - "/config/rffmpeg/.ssh/id_rsa";' /etc/rffmpeg/rffmpeg.yml
+    ln -s /config/rffmpeg/rffmpeg.yml /etc/rffmpeg/rffmpeg.yml
 
 RUN /usr/local/bin/rffmpeg init -y && \
     mkdir -p /config/rffmpeg/.ssh && \
