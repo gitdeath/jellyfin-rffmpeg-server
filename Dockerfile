@@ -17,7 +17,7 @@ RUN mkdir -p /config/rffmpeg && \
     sed -i 's;#state: "/var/lib/rffmpeg";state: "/config/rffmpeg";' /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#persist: "/run/shm";persist: "/run";' /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#owner: jellyfin;owner: root;' /config/rffmpeg/rffmpeg.yml && \
-    sed -i 's;#group: sudo;group: root;' /config/rffmpeg/rffmpeg.yml && \
+    sed -i 's;#group: sudo;group: users;' /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#user: jellyfin;user: root;' /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#args:;args:;' /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#    - "-i";    - "-i";' /config/rffmpeg/rffmpeg.yml && \
@@ -34,7 +34,8 @@ RUN /usr/local/bin/rffmpeg init -y && \
 RUN mkdir -p /root/.ssh
 
 RUN mkdir -p /transcodes && \
-    chmod 775 /transcodes
+    chgrp users /transcodes && \
+    chmod 774 /transcodes
 
 RUN sed -i 's;#   IdentityFile ~/.ssh/id_rsa;   IdentityFile /config/rffmpeg/.ssh/id_rsa;' /etc/ssh/ssh_config && \
     sed -i 's;#   UserKnownHostsFile ~/.ssh/known_hosts.d/%k;   UserKnownHostsFile /config/rffmpeg/.ssh/known_hosts;' /etc/ssh/ssh_config 
