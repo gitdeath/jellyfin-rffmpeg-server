@@ -21,3 +21,6 @@ You can check the status of rffmpeg using this:
 ```
 docker exec -it <Container Name> rffmpeg status
 ```
+
+
+When setting up hardware acceleration set the transcoding directory to '/transcodes'
