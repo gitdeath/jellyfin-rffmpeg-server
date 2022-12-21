@@ -30,6 +30,10 @@ RUN /usr/local/bin/rffmpeg init -y && \
     mkdir -p /config/rffmpeg/.ssh && \
     chmod 700 /config/rffmpeg/.ssh && \
     ssh-keygen -t rsa -f /config/rffmpeg/.ssh/id_rsa -q -N ""
+    
+RUN mkdir -p /root/.ssh
+
+RUN mkdir -p /transcodes
 
 RUN sed -i 's;#   IdentityFile ~/.ssh/id_rsa;   IdentityFile /config/rffmpeg/.ssh/id_rsa;' /etc/ssh/ssh_config && \
     sed -i 's;#   UserKnownHostsFile ~/.ssh/known_hosts.d/%k;   UserKnownHostsFile /config/rffmpeg/.ssh/known_hosts;' /etc/ssh/ssh_config 
