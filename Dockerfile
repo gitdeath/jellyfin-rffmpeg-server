@@ -33,7 +33,8 @@ RUN /usr/local/bin/rffmpeg init -y && \
     
 RUN mkdir -p /root/.ssh
 
-RUN mkdir -p /transcodes
+RUN mkdir -p /transcodes && \
+    chmod 775 /transcodes
 
 RUN sed -i 's;#   IdentityFile ~/.ssh/id_rsa;   IdentityFile /config/rffmpeg/.ssh/id_rsa;' /etc/ssh/ssh_config && \
     sed -i 's;#   UserKnownHostsFile ~/.ssh/known_hosts.d/%k;   UserKnownHostsFile /config/rffmpeg/.ssh/known_hosts;' /etc/ssh/ssh_config 
