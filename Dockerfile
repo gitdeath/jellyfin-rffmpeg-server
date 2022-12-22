@@ -33,14 +33,7 @@ RUN /usr/local/bin/rffmpeg init -y && \
     
 RUN mkdir -p /root/.ssh
 
-RUN mkdir -p /transcodes && \
-    chgrp users /transcodes && \
-    chmod g+s /transcodes && \
-    chmod 775 /transcodes
-
-RUN chgrp users -R /cache && \
-    chmod g+s /cache && \
-    chmod 777 -R /cache
+RUN mkdir -p /transcodes
 
 RUN usermod -a -G users root
 
