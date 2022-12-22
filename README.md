@@ -24,5 +24,3 @@ docker exec -it <Container Name> rffmpeg status
 
 
 When setting up hardware acceleration set the transcoding directory to `/transcodes`
-
-Run container with UID 1000
