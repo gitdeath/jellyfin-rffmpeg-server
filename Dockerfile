@@ -37,8 +37,8 @@ RUN mkdir -p /transcodes && \
     chgrp users /transcodes && \
     chmod 775 /transcodes
     
-RUN chgrp users /cache && \
-    chmod 775 /cache
+RUN chgrp users -R /cache && \
+    chmod 775 -R /cache
 
 RUN sed -i 's;#   IdentityFile ~/.ssh/id_rsa;   IdentityFile /config/rffmpeg/.ssh/id_rsa;' /etc/ssh/ssh_config && \
     sed -i 's;#   UserKnownHostsFile ~/.ssh/known_hosts.d/%k;   UserKnownHostsFile /config/rffmpeg/.ssh/known_hosts;' /etc/ssh/ssh_config 
