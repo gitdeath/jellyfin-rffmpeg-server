@@ -16,9 +16,9 @@ RUN mkdir -p /config/rffmpeg && \
     sed -i 's;#logfile: "/var/log/jellyfin/rffmpeg.log";logfile: "/config/log/rffmpeg.log";' /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#state: "/var/lib/rffmpeg";state: "/config/rffmpeg";' /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#persist: "/run/shm";persist: "/run";' /config/rffmpeg/rffmpeg.yml && \
-    sed -i 's;#owner: jellyfin;owner: root;' /config/rffmpeg/rffmpeg.yml && \
+    sed -i 's;#owner: jellyfin;owner: 1000;' /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#group: sudo;group: users;' /config/rffmpeg/rffmpeg.yml && \
-    sed -i 's;#user: jellyfin;user: root;' /config/rffmpeg/rffmpeg.yml && \
+    sed -i 's;#user: jellyfin;user: 1000;' /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#args:;args:;' /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#    - "-i";    - "-i";' /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#    - "/var/lib/jellyfin/id_rsa";    - "/config/rffmpeg/.ssh/id_rsa";' /config/rffmpeg/rffmpeg.yml
