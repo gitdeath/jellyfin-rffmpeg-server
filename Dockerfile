@@ -1,17 +1,18 @@
 FROM docker.io/jellyfin/jellyfin:latest
 
-RUN apt-get -y update
+RUN useradd -u 1000 jellyfin
 
+RUN apt-get -y update
 
 RUN apt update && \
     apt install --no-install-recommends --no-install-suggests -y openssh-client python3-click python3-yaml wget
-
+    
 RUN mkdir -p /usr/local/bin && \
     wget https://raw.githubusercontent.com/joshuaboniface/rffmpeg/master/rffmpeg -O /usr/local/bin/rffmpeg && \
     chmod +x /usr/local/bin/rffmpeg && \
     ln -s /usr/local/bin/rffmpeg /usr/local/bin/ffmpeg && \
-    ln -s /usr/local/bin/rffmpeg /usr/local/bin/ffprobe    
-
+    ln -s /usr/local/bin/rffmpeg /usr/local/bin/ffprobe
+    
 RUN mkdir -p /config/rffmpeg && \
     wget https://raw.githubusercontent.com/joshuaboniface/rffmpeg/master/rffmpeg.yml.sample -O /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#logfile: "/var/log/jellyfin/rffmpeg.log";logfile: "/config/log/rffmpeg.log";' /config/rffmpeg/rffmpeg.yml && \
@@ -20,7 +21,7 @@ RUN mkdir -p /config/rffmpeg && \
     sed -i 's;#group: sudo;group: users;' /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#args:;args:;' /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#    - "-i";    - "-i";' /config/rffmpeg/rffmpeg.yml && \
-    sed -i 's;#    - "/var/lib/jellyfin/id_rsa";    - "/config/rffmpeg/.ssh/id_rsa";' /config/rffmpeg/rffmpeg.yml 
+    sed -i 's;#    - "/var/lib/jellyfin/id_rsa";    - "/config/rffmpeg/.ssh/id_rsa";' /config/rffmpeg/rffmpeg.yml
 
 RUN mkdir -p /etc/rffmpeg && \
     ln -s /config/rffmpeg/rffmpeg.yml /etc/rffmpeg/rffmpeg.yml
@@ -38,8 +39,7 @@ RUN mkdir -p /transcodes && \
 RUN sed -i 's;#   IdentityFile ~/.ssh/id_rsa;   IdentityFile /config/rffmpeg/.ssh/id_rsa;' /etc/ssh/ssh_config && \
     sed -i 's;#   UserKnownHostsFile ~/.ssh/known_hosts.d/%k;   UserKnownHostsFile /config/rffmpeg/.ssh/known_hosts;' /etc/ssh/ssh_config 
 
-RUN useradd -u 1000 jellyfin && \
-    chown -R jellyfin /etc/rffmpeg && \
+RUN chown -R jellyfin /etc/rffmpeg && \
     chown -R jellyfin /config/rffmpeg && \
     chown -R jellyfin /home/jellyfin/.ssh && \
     chown -R jellyfin /transcodes && \
