@@ -44,7 +44,7 @@ RUN chown -R jellyfin /etc/rffmpeg && \
     chown -R jellyfin /home/jellyfin/.ssh && \
     chown -R jellyfin /transcodes && \
     chown -R jellyfin /etc/rffmpeg && \
-    chown -R jellyfin /usr/local/bin/rffmpeg
+    chown -R jellyfin /usr/local/bin
     
 RUN apt purge wget -y && \
     rm -rf /var/lib/apt/lists/* && \
