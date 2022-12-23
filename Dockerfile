@@ -6,13 +6,13 @@ RUN apt update && \
     apt install --no-install-recommends --no-install-suggests -y openssh-client python3-click python3-yaml wget
     
 RUN mkdir -p /usr/local/bin && \
-    wget https://raw.githubusercontent.com/pyaniz/rffmpeg/master/rffmpeg -O /usr/local/bin/rffmpeg && \
+    wget https://raw.githubusercontent.com/joshuaboniface/rffmpeg/master/rffmpeg -O /usr/local/bin/rffmpeg && \
     chmod +x /usr/local/bin/rffmpeg && \
     ln -s /usr/local/bin/rffmpeg /usr/local/bin/ffmpeg && \
     ln -s /usr/local/bin/rffmpeg /usr/local/bin/ffprobe
     
 RUN mkdir -p /config/rffmpeg && \
-    wget https://raw.githubusercontent.com/pyaniz/rffmpeg/master/rffmpeg.yml.sample -O /config/rffmpeg/rffmpeg.yml && \
+    wget https://raw.githubusercontent.com/joshuaboniface/rffmpeg/master/rffmpeg.yml.sample -O /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#logfile: "/var/log/jellyfin/rffmpeg.log";logfile: "/config/log/rffmpeg.log";' /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#datedlogfiles: false;datedlogfiles: true;' /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#datedlogdir: /var/log/jellyfin;datedlogdir "/config/log";' /config/rffmpeg/rffmpeg.yml && \
