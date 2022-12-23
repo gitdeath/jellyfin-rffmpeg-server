@@ -14,7 +14,7 @@ RUN mkdir -p /usr/local/bin && \
 RUN mkdir -p /config/rffmpeg && \
     wget https://raw.githubusercontent.com/joshuaboniface/rffmpeg/master/rffmpeg.yml.sample -O /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#datedlogfiles: false;datedlogfiles: true;' /config/rffmpeg/rffmpeg.yml && \
-    sed -i 's;#datedlogdir: /var/log/jellyfin";logfile: "datedlogdir /config/log/rffmpeg.log";' /config/rffmpeg/rffmpeg.yml && \
+    sed -i 's;#datedlogdir: /var/log/jellyfin;logfile: datedlogdir "/config/log";' /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#state: "/var/lib/rffmpeg";state: "/config/rffmpeg";' /config/rffmpeg && \
     sed -i 's;#persist: "/run/shm";persist: "/run";' /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#owner: jellyfin;owner: root;' /config/rffmpeg/rffmpeg.yml && \
