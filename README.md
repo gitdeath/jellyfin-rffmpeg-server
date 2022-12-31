@@ -23,7 +23,7 @@ docker exec -it <Container Name> rffmpeg status
 ```
 
 
-When setting up hardware acceleration set the transcoding directory to `/transcodes`
+When setting up hardware acceleration set the transcoding directory to `/transcodes` and ensure it is mounted to Jellyfin and all transcode workers with the NFS attributes of `sync` and `actimeo=1`
 
 
 Use root user for ssh to your transcode worker
