@@ -29,7 +29,7 @@ RUN mkdir -p /etc/rffmpeg && \
     ln -s /config/rffmpeg/rffmpeg.yml /etc/rffmpeg/rffmpeg.yml
     
 RUN /usr/local/bin/rffmpeg init -y && \
-    mkdir -p /config/rffmpeg/.ssh && \
+    mkdir -p /config/rffmpeg/.ssh && \ 
     chmod 700 /config/rffmpeg/.ssh && \
     ssh-keygen -t rsa -f /config/rffmpeg/.ssh/id_rsa -q -N ""
 
