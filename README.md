@@ -1,6 +1,6 @@
 # jellyfin-rffmpeg-server
 
-Official jellyfin docker image 10.8.10 with [rffmpeg](https://github.com/joshuaboniface/rffmpeg) 8/23/23 included.
+Official jellyfin docker image 10.8.11 with [rffmpeg](https://github.com/joshuaboniface/rffmpeg) (9/27/23) included.
 
 The public ssh key is located inside the container at `/config/rffmpeg/.ssh/id_rsa.pub`
 The known_hosts file is located inside the container at `/config/rffmpeg/.ssh/known_hosts`
