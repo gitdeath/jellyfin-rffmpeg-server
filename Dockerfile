@@ -4,7 +4,7 @@ RUN apt-get -y update
 
 RUN apt update && \
     apt install --no-install-recommends --no-install-suggests -y openssh-client python3-click python3-yaml wget \
-    #apt install -y nfs-kernel-server
+    apt install -y nfs-kernel-server
     
 RUN mkdir -p /usr/local/bin && \
     wget https://raw.githubusercontent.com/joshuaboniface/rffmpeg/master/rffmpeg -O /usr/local/bin/rffmpeg && \
