@@ -39,6 +39,8 @@ RUN mkdir -p /root/.ssh
 
 RUN mkdir -p /transcodes
 
+RUN echo "/transcodes 192.168.0.0/16(rw,sync,no_subtree_check,no_root_squash)" >> /etc/exports
+
 RUN usermod -a -G users root
 
 RUN sed -i 's;#   IdentityFile ~/.ssh/id_rsa;   IdentityFile /config/rffmpeg/.ssh/id_rsa;' /etc/ssh/ssh_config && \
