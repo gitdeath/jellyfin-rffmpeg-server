@@ -27,3 +27,6 @@ When setting up hardware acceleration set the transcoding directory to `/transco
 
 
 Use root user for ssh to your transcode worker
+
+
+Currently testing nfs server from the same container to export /transcodes directory. Allowing transcoding to be stored on the local machine's SSD.
