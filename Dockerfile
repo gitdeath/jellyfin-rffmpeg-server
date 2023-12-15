@@ -3,7 +3,7 @@ FROM docker.io/jellyfin/jellyfin:latest
 RUN apt-get -y update
 
 RUN apt update && \
-    apt install --no-install-recommends --no-install-suggests -y openssh-client python3-click python3-yaml wget nfs-common
+    apt install --no-install-recommends --no-install-suggests -y openssh-client python3-click python3-yaml wget nfs-common netbase
     
 #RUN apt install -y nfs-kernel-server
     
