@@ -24,8 +24,6 @@ RUN mkdir -p /config/rffmpeg && \
     sed -i 's;#args:;args:;' /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#    - "-i";    - "-i";' /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#    - "/var/lib/jellyfin/id_rsa";    - "/config/rffmpeg/.ssh/id_rsa";' /config/rffmpeg/rffmpeg.yml
-    
-
 
 RUN mkdir -p /etc/rffmpeg && \
     ln -s /config/rffmpeg/rffmpeg.yml /etc/rffmpeg/rffmpeg.yml
@@ -33,7 +31,9 @@ RUN mkdir -p /etc/rffmpeg && \
 RUN /usr/local/bin/rffmpeg init -y && \
     mkdir -p /config/rffmpeg/.ssh && \
     chmod 700 /config/rffmpeg/.ssh && \
-    ssh-keygen -t rsa -f /config/rffmpeg/.ssh/id_rsa -q -N ""
+    ssh-keygen -t rsa -f /config/rffmpeg/.ssh/id_rsa -q -N "" && \
+    cp /config/rffmpeg/.ssh/id_rsa /config/rffmpeg/.ssh/authorized_keys && \
+    chmod 600 /config/rffmpeg/.ssh/authorized_keys
     
 RUN sed -i 's;#   StrictHostKeyChecking ask;    StrictHostKeyChecking no;' /etc/ssh/ssh_config
 
