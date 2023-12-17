@@ -48,12 +48,7 @@ RUN /usr/local/bin/rffmpeg init -y && \
     chmod 700 /config/rffmpeg/.ssh && \
     chmod 600 /config/rffmpeg/.ssh/authorized_keys
 
-# create transcodessh user
-RUN useradd -u 7001 -g users -m transcodessh
-RUN mkdir -p /home/transcodessh/.ssh
-RUN chown transcodessh /home/transcodessh/.ssh
-RUN chmod 700 /home/transcodessh/.ssh
-    
+   
 RUN sed -i 's;#   StrictHostKeyChecking ask;    StrictHostKeyChecking no;' /etc/ssh/ssh_config
 
 # Make and set perms for /transcodes
