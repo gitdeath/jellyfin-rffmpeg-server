@@ -17,37 +17,36 @@ RUN mkdir -p /home/transcodessh/.ssh
 RUN chown transcodessh /home/transcodessh/.ssh
 RUN chmod 700 /home/transcodessh/.ssh
     
-RUN mkdir -p /config/rffmpeg && \
-    chown transcodessh /config/rffmpeg && \
-    chgrp users /config/rffmpeg && \
-    wget https://raw.githubusercontent.com/joshuaboniface/rffmpeg/master/rffmpeg.yml.sample -O /config/rffmpeg/rffmpeg.yml && \
-    sed -i 's;#logfile: "/var/log/jellyfin/rffmpeg.log";logfile: "/config/log/rffmpeg.log";' /config/rffmpeg/rffmpeg.yml && \
-    sed -i 's;#datedlogfiles: false;datedlogfiles: true;' /config/rffmpeg/rffmpeg.yml && \
-    sed -i 's;#datedlogdir: "/var/log/jellyfin";datedlogdir "/config/log";' /config/rffmpeg/rffmpeg.yml && \
-    sed -i 's;#state: "/var/lib/rffmpeg";state: "/config/rffmpeg";' /config/rffmpeg/rffmpeg.yml && \
-    sed -i 's;#persist: "/run/shm";persist: "/run";' /config/rffmpeg/rffmpeg.yml && \
-    sed -i 's;#owner: jellyfin;owner: root;' /config/rffmpeg/rffmpeg.yml && \
+RUN mkdir -p /rffmpeg && \
+    #chown transcodessh /ffmpeg && \
+    #chgrp users /rffmpeg && \
+    wget https://raw.githubusercontent.com/joshuaboniface/rffmpeg/master/rffmpeg.yml.sample -O /rffmpeg/rffmpeg.yml && \
+    sed -i 's;#logfile: "/var/log/jellyfin/rffmpeg.log";logfile: "/config/log/rffmpeg.log";' /rffmpeg/rffmpeg.yml && \
+    sed -i 's;#datedlogfiles: false;datedlogfiles: true;' /rffmpeg/rffmpeg.yml && \
+    sed -i 's;#datedlogdir: "/var/log/jellyfin";datedlogdir "/config/log";' /rffmpeg/rffmpeg.yml && \
+    sed -i 's;#state: "/var/lib/rffmpeg";state: "/config/rffmpeg";' /rffmpeg/rffmpeg.yml && \
+    sed -i 's;#persist: "/run/shm";persist: "/run";' /rffmpeg/rffmpeg.yml && \
+    sed -i 's;#owner: jellyfin;owner: root;' /rffmpeg/rffmpeg.yml && \
     #sed -i 's;#owner: jellyfin;owner: transcodessh;' /config/rffmpeg/rffmpeg.yml && \
     #sed -i 's;#group: sudo;group: users;' /config/rffmpeg/rffmpeg.yml && \
     #sed -i 's;#user: jellyfin;user: root;' /config/rffmpeg/rffmpeg.yml && \
-    sed -i 's;#user: jellyfin;user: transcodessh;' /config/rffmpeg/rffmpeg.yml && \
-
-    sed -i 's;#args:;args:;' /config/rffmpeg/rffmpeg.yml && \
-    sed -i 's;#    - "-i";    - "-i";' /config/rffmpeg/rffmpeg.yml && \
-    sed -i 's;#    - "/var/lib/jellyfin/id_rsa";    - "/config/rffmpeg/.ssh/id_rsa";' /config/rffmpeg/rffmpeg.yml
+    sed -i 's;#user: jellyfin;user: transcodessh;' /rffmpeg/rffmpeg.yml && \
+    sed -i 's;#args:;args:;' /rffmpeg/rffmpeg.yml && \
+    sed -i 's;#    - "-i";    - "-i";' /rffmpeg/rffmpeg.yml && \
+    sed -i 's;#    - "/var/lib/jellyfin/id_rsa";    - "/config/rffmpeg/.ssh/id_rsa";' /rffmpeg/rffmpeg.yml
 
 RUN mkdir -p /etc/rffmpeg && \
     ln -s /config/rffmpeg/rffmpeg.yml /etc/rffmpeg/rffmpeg.yml
 
 # rffmpeg setup
 RUN /usr/local/bin/rffmpeg init -y && \
-    mkdir -p /config/rffmpeg/.ssh && \
-    ssh-keygen -t rsa -f /config/rffmpeg/.ssh/id_rsa -q -N "" && \
-    cp /config/rffmpeg/.ssh/id_rsa /config/rffmpeg/.ssh/authorized_keys && \
-    chown transcodessh /config/rffmpeg/.ssh && \
-    chown transcodessh /config/rffmpeg/.ssh/authorized_keys && \
-    chmod 700 /config/rffmpeg/.ssh && \
-    chmod 600 /config/rffmpeg/.ssh/authorized_keys
+    mkdir -p /rffmpeg/.ssh && \
+    ssh-keygen -t rsa -f /rffmpeg/.ssh/id_rsa -q -N "" && \
+    cp /config/rffmpeg/.ssh/id_rsa /rffmpeg/.ssh/authorized_keys && \
+    chown transcodessh /rffmpeg/.ssh && \
+    chown transcodessh /rffmpeg/.ssh/authorized_keys && \
+    chmod 700 /rffmpeg/.ssh && \
+    chmod 600 /rffmpeg/.ssh/authorized_keys
 
 RUN sed -i 's;#   IdentityFile ~/.ssh/id_rsa;   IdentityFile /config/rffmpeg/.ssh/id_rsa;' /etc/ssh/ssh_config && \
 #    sed -i 's;#   UserKnownHostsFile ~/.ssh/known_hosts.d/%k;   UserKnownHostsFile /config/rffmpeg/.ssh/known_hosts;' /etc/ssh/ssh_config 
