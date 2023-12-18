@@ -42,7 +42,7 @@ RUN mkdir -p /etc/rffmpeg && \
 RUN /usr/local/bin/rffmpeg init -y 
 RUN mkdir -p /rffmpeg/.ssh && \
     ssh-keygen -t rsa -f /rffmpeg/.ssh/id_rsa -q -N "" && \
-    cp /config/rffmpeg/.ssh/id_rsa /rffmpeg/.ssh/authorized_keys
+    cp /rffmpeg/.ssh/id_rsa /rffmpeg/.ssh/authorized_keys
     
 RUN chown transcodessh /rffmpeg/.ssh && \
     chown transcodessh /rffmpeg/.ssh/authorized_keys && \
