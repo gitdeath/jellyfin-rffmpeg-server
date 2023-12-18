@@ -24,7 +24,7 @@ RUN mkdir -p /rffmpeg && \
     sed -i 's;#logfile: "/var/log/jellyfin/rffmpeg.log";logfile: "/config/log/rffmpeg.log";' /rffmpeg/rffmpeg.yml && \
     sed -i 's;#datedlogfiles: false;datedlogfiles: true;' /rffmpeg/rffmpeg.yml && \
     sed -i 's;#datedlogdir: "/var/log/jellyfin";datedlogdir "/config/log";' /rffmpeg/rffmpeg.yml && \
-    sed -i 's;#state: "/var/lib/rffmpeg";state: "/config/rffmpeg";' /rffmpeg/rffmpeg.yml && \
+    sed -i 's;#state: "/var/lib/rffmpeg";state: "/rffmpeg";' /rffmpeg/rffmpeg.yml && \
     sed -i 's;#persist: "/run/shm";persist: "/run";' /rffmpeg/rffmpeg.yml && \
     sed -i 's;#owner: jellyfin;owner: root;' /rffmpeg/rffmpeg.yml && \
     #sed -i 's;#owner: jellyfin;owner: transcodessh;' /config/rffmpeg/rffmpeg.yml && \
@@ -33,7 +33,7 @@ RUN mkdir -p /rffmpeg && \
     sed -i 's;#user: jellyfin;user: transcodessh;' /rffmpeg/rffmpeg.yml && \
     sed -i 's;#args:;args:;' /rffmpeg/rffmpeg.yml && \
     sed -i 's;#    - "-i";    - "-i";' /rffmpeg/rffmpeg.yml && \
-    sed -i 's;#    - "/var/lib/jellyfin/id_rsa";    - "/config/rffmpeg/.ssh/id_rsa";' /rffmpeg/rffmpeg.yml
+    sed -i 's;#    - "/var/lib/jellyfin/id_rsa";    - "/rffmpeg/.ssh/id_rsa";' /rffmpeg/rffmpeg.yml
 
 RUN mkdir -p /etc/rffmpeg && \
     ln -s /rffmpeg/rffmpeg.yml /etc/rffmpeg/rffmpeg.yml
@@ -49,7 +49,7 @@ RUN chown transcodessh /rffmpeg/.ssh && \
     chmod 700 /rffmpeg/.ssh && \
     chmod 600 /rffmpeg/.ssh/authorized_keys
 
-RUN sed -i 's;#   IdentityFile ~/.ssh/id_rsa;   IdentityFile /config/rffmpeg/.ssh/id_rsa;' /etc/ssh/ssh_config && \
+RUN sed -i 's;#   IdentityFile ~/.ssh/id_rsa;   IdentityFile /rffmpeg/.ssh/id_rsa;' /etc/ssh/ssh_config && \
 #    sed -i 's;#   UserKnownHostsFile ~/.ssh/known_hosts.d/%k;   UserKnownHostsFile /config/rffmpeg/.ssh/known_hosts;' /etc/ssh/ssh_config 
     sed -i 's;#   StrictHostKeyChecking ask;    StrictHostKeyChecking no;' /etc/ssh/ssh_config
 
