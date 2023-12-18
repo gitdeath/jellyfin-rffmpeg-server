@@ -38,12 +38,12 @@ RUN mkdir -p /rffmpeg && \
 RUN mkdir -p /etc/rffmpeg && \
     ln -s /rffmpeg/rffmpeg.yml /etc/rffmpeg/rffmpeg.yml
 
-# 10.8.13 and onward fix for FFmpeg
-RUN sed -i "/.*EncoderApp/d" /config/config/encoding.xml
-RUN sed -i "/.*EncodingOptions>/d" /config/config/encoding.xml
-RUN echo '  <EncoderAppPath>/usr/local\/bin/ffmpeg</EncoderAppPath>' >> /config/config/encoding.xml
-RUN echo '  <EncoderAppPathDisplay>/usr/local/bin/ffmpeg</EncoderAppPathDisplay>' >> /config/config/encoding.xml
-RUN echo '</EncodingOptions>' >> /config/config/encoding.xml
+# Testing 10.8.13 and onward fix for FFmpeg
+#RUN sed -i "/.*EncoderApp/d" /config/config/encoding.xml
+#RUN sed -i "/.*EncodingOptions>/d" /config/config/encoding.xml
+#RUN echo '  <EncoderAppPath>/usr/local\/bin/ffmpeg</EncoderAppPath>' >> /config/config/encoding.xml
+#RUN echo '  <EncoderAppPathDisplay>/usr/local/bin/ffmpeg</EncoderAppPathDisplay>' >> /config/config/encoding.xml
+#RUN echo '</EncodingOptions>' >> /config/config/encoding.xml
 
 # rffmpeg setup
 RUN /usr/local/bin/rffmpeg init -y 
