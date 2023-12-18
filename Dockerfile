@@ -26,9 +26,9 @@ RUN mkdir -p /config/rffmpeg && \
     sed -i 's;#datedlogdir: "/var/log/jellyfin";datedlogdir "/config/log";' /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#state: "/var/lib/rffmpeg";state: "/config/rffmpeg";' /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#persist: "/run/shm";persist: "/run";' /config/rffmpeg/rffmpeg.yml && \
-    #sed -i 's;#owner: jellyfin;owner: root;' /config/rffmpeg/rffmpeg.yml && \
-    sed -i 's;#owner: jellyfin;owner: transcodessh;' /config/rffmpeg/rffmpeg.yml && \
-    sed -i 's;#group: sudo;group: users;' /config/rffmpeg/rffmpeg.yml && \
+    sed -i 's;#owner: jellyfin;owner: root;' /config/rffmpeg/rffmpeg.yml && \
+    #sed -i 's;#owner: jellyfin;owner: transcodessh;' /config/rffmpeg/rffmpeg.yml && \
+    #sed -i 's;#group: sudo;group: users;' /config/rffmpeg/rffmpeg.yml && \
     #sed -i 's;#user: jellyfin;user: root;' /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#user: jellyfin;user: transcodessh;' /config/rffmpeg/rffmpeg.yml && \
 
@@ -38,9 +38,6 @@ RUN mkdir -p /config/rffmpeg && \
 
 RUN mkdir -p /etc/rffmpeg && \
     ln -s /config/rffmpeg/rffmpeg.yml /etc/rffmpeg/rffmpeg.yml
-
-
-
 
 # rffmpeg setup
 RUN /usr/local/bin/rffmpeg init -y && \
@@ -52,19 +49,16 @@ RUN /usr/local/bin/rffmpeg init -y && \
     chmod 700 /config/rffmpeg/.ssh && \
     chmod 600 /config/rffmpeg/.ssh/authorized_keys
 
-   
-RUN sed -i 's;#   StrictHostKeyChecking ask;    StrictHostKeyChecking no;' /etc/ssh/ssh_config
+RUN sed -i 's;#   IdentityFile ~/.ssh/id_rsa;   IdentityFile /config/rffmpeg/.ssh/id_rsa;' /etc/ssh/ssh_config && \
+#    sed -i 's;#   UserKnownHostsFile ~/.ssh/known_hosts.d/%k;   UserKnownHostsFile /config/rffmpeg/.ssh/known_hosts;' /etc/ssh/ssh_config 
+    sed -i 's;#   StrictHostKeyChecking ask;    StrictHostKeyChecking no;' /etc/ssh/ssh_config
 
 # Make and set perms for /transcodes
 RUN mkdir -p /transcodes
 RUN chgrp users /transcodes
 
 #RUN echo 'nfs-server:/transcodes /mnt nfs rw,nolock,actimeo=1 0 0' > /etc/fstab
-
-RUN usermod -a -G users root
-
-RUN sed -i 's;#   IdentityFile ~/.ssh/id_rsa;   IdentityFile /config/rffmpeg/.ssh/id_rsa;' /etc/ssh/ssh_config && \
-    sed -i 's;#   UserKnownHostsFile ~/.ssh/known_hosts.d/%k;   UserKnownHostsFile /config/rffmpeg/.ssh/known_hosts;' /etc/ssh/ssh_config 
+#RUN usermod -a -G users root
     
 RUN apt purge wget -y && \
     rm -rf /var/lib/apt/lists/* && \
