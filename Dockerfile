@@ -58,7 +58,8 @@ RUN mkdir -p /transcodes
 RUN chgrp users /transcodes
 
 #RUN echo 'nfs-server:/transcodes /mnt nfs rw,nolock,actimeo=1 0 0' > /etc/fstab
-#RUN usermod -a -G users root
+# Add root user to the users group
+RUN usermod -a -G users root
     
 RUN apt purge wget -y && \
     rm -rf /var/lib/apt/lists/* && \
