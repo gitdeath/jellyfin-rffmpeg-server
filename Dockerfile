@@ -28,7 +28,7 @@ RUN mkdir -p /rffmpeg && \
     sed -i 's;#persist: "/run/shm";persist: "/run";' /rffmpeg/rffmpeg.yml && \
     sed -i 's;#owner: jellyfin;owner: root;' /rffmpeg/rffmpeg.yml && \
     #sed -i 's;#owner: jellyfin;owner: transcodessh;' /config/rffmpeg/rffmpeg.yml && \
-    #sed -i 's;#group: sudo;group: users;' /config/rffmpeg/rffmpeg.yml && \
+    sed -i 's;#group: sudo;group: users;' /rffmpeg/rffmpeg.yml && \
     #sed -i 's;#user: jellyfin;user: root;' /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#user: jellyfin;user: transcodessh;' /rffmpeg/rffmpeg.yml && \
     sed -i 's;#args:;args:;' /rffmpeg/rffmpeg.yml && \
