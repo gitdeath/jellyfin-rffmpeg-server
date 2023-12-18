@@ -3,7 +3,8 @@ FROM docker.io/jellyfin/jellyfin:latest
 RUN apt-get -y update
 
 RUN apt update && \
-    apt install --no-install-recommends --no-install-suggests -y openssh-client python3-click python3-yaml wget nfs-common netbase
+    apt install --no-install-recommends --no-install-suggests -y openssh-client python3-click python3-yaml wget nfs-common netbase iputils-ping
+
   
 RUN mkdir -p /usr/local/bin && \
     wget https://raw.githubusercontent.com/joshuaboniface/rffmpeg/master/rffmpeg -O /usr/local/bin/rffmpeg && \
