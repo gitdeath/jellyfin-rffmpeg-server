@@ -67,7 +67,8 @@ RUN usermod -a -G users root
 # Add hostscale script
 COPY rffmpeg-hostscale.sh /rffmpeg-hostscale.sh
 RUN chmod +x /rffmpeg-hostscale.sh
-RUN echo "*/15 * * * * /path/to/your/script.sh" | crontab -
+RUN echo "*/15 * * * * /rffmpeg-hostscale.sh" | crontab -
+RUN service cron start
 
 RUN apt purge wget -y && \
     rm -rf /var/lib/apt/lists/* && \
