@@ -4,6 +4,9 @@ Official jellyfin docker image 10.8.12 with [rffmpeg](https://github.com/joshuab
 
 ```
 Note: If used with my media_server yml then everything is handled automatically.
+ - Automatically scale the rffmpeg add / removes based on the number of worker nodes
+ - Rffmpeg init and SSH with rsa to worker nodes.
+ - SSH to nodes are not done with elevation to prevent security issues.
 ```
 
 Manual usage only below:
