@@ -8,18 +8,18 @@ is_host_online() {
 
 # Function to check if a hostname is present in the output of 'rffmpeg status'
 is_hostname_present() {
-    rffmpeg status | grep -q "$1"
+    /usr/local/bin/rffmpeg status | grep -q "$1"
     return $?
 }
 
 # Function to add a hostname using 'rffmpeg add'
 add_hostname() {
-    rffmpeg add "$1"
+    /usr/local/bin/rffmpeg add "$1"
 }
 
 # Function to remove a hostname using 'rffmpeg remove'
 remove_hostname() {
-    rffmpeg remove "$1"
+    /usr/local/bin/rffmpeg remove "$1"
 }
 
 # Maximum number of consecutive unresponsive hosts allowed
