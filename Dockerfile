@@ -39,10 +39,11 @@ RUN mkdir -p /etc/rffmpeg && \
     ln -s /rffmpeg/rffmpeg.yml /etc/rffmpeg/rffmpeg.yml
 
 # rffmpeg setup
-RUN /usr/local/bin/rffmpeg init -y && \
-    mkdir -p /rffmpeg/.ssh && \
+RUN /usr/local/bin/rffmpeg init -y 
+RUN mkdir -p /rffmpeg/.ssh && \
     ssh-keygen -t rsa -f /rffmpeg/.ssh/id_rsa -q -N "" && \
-    cp /config/rffmpeg/.ssh/id_rsa /rffmpeg/.ssh/authorized_keys 
+    cp /config/rffmpeg/.ssh/id_rsa /rffmpeg/.ssh/authorized_keys
+    
 RUN chown transcodessh /rffmpeg/.ssh && \
     chown transcodessh /rffmpeg/.ssh/authorized_keys && \
     chmod 700 /rffmpeg/.ssh && \
