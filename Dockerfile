@@ -50,7 +50,7 @@ RUN chown transcodessh /rffmpeg/.ssh && \
     chmod 600 /rffmpeg/.ssh/authorized_keys
 
 RUN sed -i 's;#   IdentityFile ~/.ssh/id_rsa;   IdentityFile /rffmpeg/.ssh/id_rsa;' /etc/ssh/ssh_config && \
-#    sed -i 's;#   UserKnownHostsFile ~/.ssh/known_hosts.d/%k;   UserKnownHostsFile /config/rffmpeg/.ssh/known_hosts;' /etc/ssh/ssh_config 
+    sed -i 's;#   UserKnownHostsFile ~/.ssh/known_hosts.d/%k;   UserKnownHostsFile /dev/null ;' /etc/ssh/ssh_config &&\
     sed -i 's;#   StrictHostKeyChecking ask;    StrictHostKeyChecking no;' /etc/ssh/ssh_config
 
 # Make and set perms for /transcodes
