@@ -3,8 +3,7 @@ FROM docker.io/jellyfin/jellyfin:latest
 RUN apt-get -y update
 
 RUN apt update && \
-    apt install --no-install-recommends --no-install-suggests -y openssh-client python3-click python3-yaml wget nfs-common netbase iputils-ping
-
+    apt install --no-install-recommends --no-install-suggests -y openssh-client cron python3-click python3-yaml wget nfs-common netbase iputils-ping
   
 RUN mkdir -p /usr/local/bin && \
     wget https://raw.githubusercontent.com/joshuaboniface/rffmpeg/master/rffmpeg -O /usr/local/bin/rffmpeg && \
@@ -17,10 +16,9 @@ RUN useradd -u 7001 -g users -m transcodessh
 RUN mkdir -p /home/transcodessh/.ssh
 RUN chown transcodessh /home/transcodessh/.ssh
 RUN chmod 700 /home/transcodessh/.ssh
-    
+
+# make rffmpeg config
 RUN mkdir -p /rffmpeg && \
-    #chown transcodessh /ffmpeg && \
-    #chgrp users /rffmpeg && \
     wget https://raw.githubusercontent.com/joshuaboniface/rffmpeg/master/rffmpeg.yml.sample -O /rffmpeg/rffmpeg.yml && \
     sed -i 's;#logfile: "/var/log/jellyfin/rffmpeg.log";logfile: "/config/log/rffmpeg.log";' /rffmpeg/rffmpeg.yml && \
     sed -i 's;#datedlogfiles: false;datedlogfiles: true;' /rffmpeg/rffmpeg.yml && \
@@ -28,9 +26,7 @@ RUN mkdir -p /rffmpeg && \
     sed -i 's;#state: "/var/lib/rffmpeg";state: "/rffmpeg";' /rffmpeg/rffmpeg.yml && \
     sed -i 's;#persist: "/run/shm";persist: "/run";' /rffmpeg/rffmpeg.yml && \
     sed -i 's;#owner: jellyfin;owner: root;' /rffmpeg/rffmpeg.yml && \
-    #sed -i 's;#owner: jellyfin;owner: transcodessh;' /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#group: sudo;group: users;' /rffmpeg/rffmpeg.yml && \
-    #sed -i 's;#user: jellyfin;user: root;' /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#user: jellyfin;user: transcodessh;' /rffmpeg/rffmpeg.yml && \
     sed -i 's;#args:;args:;' /rffmpeg/rffmpeg.yml && \
     sed -i 's;#    - "-i";    - "-i";' /rffmpeg/rffmpeg.yml && \
@@ -65,10 +61,14 @@ RUN sed -i 's;#   IdentityFile ~/.ssh/id_rsa;   IdentityFile /rffmpeg/.ssh/id_rs
 RUN mkdir -p /transcodes
 RUN chgrp users /transcodes
 
-#RUN echo 'nfs-server:/transcodes /mnt nfs rw,nolock,actimeo=1 0 0' > /etc/fstab
 # Add root user to the users group
 RUN usermod -a -G users root
-    
+
+# Add hostscale script
+COPY rffmpeg-hostscale.sh /rffmpeg-hostscale.sh
+RUN chmod +x /rffmpeg-hostscale.sh
+RUN echo "*/15 * * * * /path/to/your/script.sh" | crontab -
+
 RUN apt purge wget -y && \
     rm -rf /var/lib/apt/lists/* && \
     apt autoremove --purge -y && \
