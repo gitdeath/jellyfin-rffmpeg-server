@@ -68,14 +68,12 @@ RUN usermod -a -G users root
 COPY rffmpeg-hostscale.sh /rffmpeg-hostscale.sh
 RUN chmod +x /rffmpeg-hostscale.sh
 RUN echo "*/15 * * * * /rffmpeg-hostscale.sh" | crontab - 
-# >> /var/log/my_cron.log 2>&1
-RUN service cron start
 
 RUN apt purge wget -y && \
     rm -rf /var/lib/apt/lists/* && \
     apt autoremove --purge -y && \
     apt clean
-    
-ENTRYPOINT ["./jellyfin/jellyfin", \
-    "--datadir", "/config", \
-    "--cachedir", "/cache"]
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
