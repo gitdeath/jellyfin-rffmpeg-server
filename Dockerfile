@@ -10,6 +10,12 @@ RUN mkdir -p /usr/local/bin && \
     chmod +x /usr/local/bin/rffmpeg && \
     ln -s /usr/local/bin/rffmpeg /usr/local/bin/ffmpeg && \
     ln -s /usr/local/bin/rffmpeg /usr/local/bin/ffprobe
+
+# create transcodessh user
+RUN useradd -u 7001 -g users -m transcodessh
+RUN mkdir -p /home/transcodessh/.ssh
+RUN chown transcodessh /home/transcodessh/.ssh
+RUN chmod 700 /home/transcodessh/.ssh
     
 RUN mkdir -p /config/rffmpeg && \
     chown transcodessh /config/rffmpeg && \
@@ -34,11 +40,7 @@ RUN mkdir -p /etc/rffmpeg && \
     ln -s /config/rffmpeg/rffmpeg.yml /etc/rffmpeg/rffmpeg.yml
 
 
-# create transcodessh user
-RUN useradd -u 7001 -g users -m transcodessh
-RUN mkdir -p /home/transcodessh/.ssh
-RUN chown transcodessh /home/transcodessh/.ssh
-RUN chmod 700 /home/transcodessh/.ssh
+
 
 # rffmpeg setup
 RUN /usr/local/bin/rffmpeg init -y && \
