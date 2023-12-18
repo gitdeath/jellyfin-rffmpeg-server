@@ -40,10 +40,10 @@ RUN mkdir -p /etc/rffmpeg && \
 
 # 10.8.13 and onward fix for FFmpeg
 RUN sed -i "/.*EncoderApp/d" /config/config/encoding.xml
-RUN sed -i '/<\/EncodingOptions>/c\
-  <EncoderAppPath>\/usr\/local\/bin\/ffmpeg<\/EncoderAppPath>\
-  <EncoderAppPathDisplay>\/usr\/local\/bin\/ffmpeg<\/EncoderAppPathDisplay>\
-<\/EncodingOptions>' /config/config/encoding.xml
+RUN sed -i "/.*EncodingOptions/d" /config/config/encoding.xml
+RUN echo '  <EncoderAppPath>/usr/local\/bin/ffmpeg</EncoderAppPath>' >> /config/config/encoding.xml
+RUN echo '  <EncoderAppPathDisplay>/usr/local/bin/ffmpeg</EncoderAppPathDisplay>' >> /config/config/encoding.xml
+RUN echo '</EncodingOptions>' >> /config/config/encoding.xml
 
 # rffmpeg setup
 RUN /usr/local/bin/rffmpeg init -y 
