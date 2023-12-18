@@ -36,7 +36,7 @@ RUN mkdir -p /rffmpeg && \
     sed -i 's;#    - "/var/lib/jellyfin/id_rsa";    - "/config/rffmpeg/.ssh/id_rsa";' /rffmpeg/rffmpeg.yml
 
 RUN mkdir -p /etc/rffmpeg && \
-    ln -s /config/rffmpeg/rffmpeg.yml /etc/rffmpeg/rffmpeg.yml
+    ln -s /rffmpeg/rffmpeg.yml /etc/rffmpeg/rffmpeg.yml
 
 # rffmpeg setup
 RUN /usr/local/bin/rffmpeg init -y && \
