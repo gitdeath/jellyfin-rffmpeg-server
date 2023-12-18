@@ -8,7 +8,8 @@ is_host_online() {
 
 # Function to check if a hostname is present in the output of 'rffmpeg status'
 is_hostname_present() {
-    /usr/local/bin/rffmpeg status | grep -q "$1"
+    local hostname="$1"
+    /usr/local/bin/rffmpeg status | grep -wq "$hostname"
     return $?
 }
 
