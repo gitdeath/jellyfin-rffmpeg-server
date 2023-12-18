@@ -1,4 +1,4 @@
-FROM docker.io/jellyfin/jellyfin:latest
+FROM docker.io/jellyfin/jellyfin:10.8.12
 
 RUN apt-get -y update
 
