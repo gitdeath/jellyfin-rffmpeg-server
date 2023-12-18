@@ -12,6 +12,8 @@ RUN mkdir -p /usr/local/bin && \
     ln -s /usr/local/bin/rffmpeg /usr/local/bin/ffprobe
     
 RUN mkdir -p /config/rffmpeg && \
+    chown transcodessh /config/rffmpeg && \
+    chgrp users /config/rffmpeg && \
     wget https://raw.githubusercontent.com/joshuaboniface/rffmpeg/master/rffmpeg.yml.sample -O /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#logfile: "/var/log/jellyfin/rffmpeg.log";logfile: "/config/log/rffmpeg.log";' /config/rffmpeg/rffmpeg.yml && \
     sed -i 's;#datedlogfiles: false;datedlogfiles: true;' /config/rffmpeg/rffmpeg.yml && \
