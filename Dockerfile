@@ -62,12 +62,12 @@ RUN mkdir -p /transcodes
 RUN chgrp users /transcodes
 
 # Make and set perms for /cache
-RUN mkdir -p /cache
-RUN chgrp users /cache
+#RUN mkdir -p /cache
+#RUN chgrp users /cache
 
 # Make and set perms for /config
-RUN mkdir -p /config
-RUN chgrp users /config
+#RUN mkdir -p /config
+#RUN chgrp users /config
 
 # Add root user to the users group
 RUN usermod -a -G users root
