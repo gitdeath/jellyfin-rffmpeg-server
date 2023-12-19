@@ -84,4 +84,7 @@ RUN apt purge wget -y && \
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
+#ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["./jellyfin/jellyfin", \
+    "--datadir", "/config", \
+    "--cachedir", "/cache"]
